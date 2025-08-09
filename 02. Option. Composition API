@@ -1,0 +1,89 @@
+a.Option API: It is the traditional approach to building components, where logic is structured into predefined option objects, such as data, methods, computed, watch, props, and lifecycle hooks 
+              (created, mounted, etc.)
+Syntax: <template>
+        <div>
+           <h1>{{ message }}</h1>
+           <button @click="changeMessage">Change Message</button>
+        </div>
+        </template>
+        <script>
+         export default {
+         // Component's reactive data
+           data() {
+            return {
+              message: "Hello from Options API!"
+            };
+           },
+         // Component's method
+             methods: {
+                changeMessage() {
+                this.message = "Message updated!";
+               }
+            },
+         // Lifecycle hook
+          mounted() {
+         console.log("Component is mounted!");
+           }
+          };
+        </script>
+b.Composition API: It is a way to organize component logic inside a setup() function, letting you group related code together for better reusability and clarity.
+Syntax: <template>
+          <div>
+            <h2>Count: {{ count }}</h2>
+           <button @click="increment">Increment</button>
+         </div>
+        </template>
+       <script>
+       import { ref } from 'vue';
+      export default {
+         setup() {
+         // Reactive state
+        const count = ref(0);
+        // Method
+        const increment = () => {
+         count.value++;
+       };
+      // Return values to the template
+      return { count, increment };
+        }
+       };
+      </script>
+
+c.Differences between OptionAPI and Composition API 
+| Feature                | **Options API**                                                                                | **Composition API**                                               |
+| ---------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Definition style**   | Uses separate option blocks (`data`, `methods`, `computed`, `watch`) to define component logic | Uses a single `setup()` function to define all logic in one place |
+| **Code organization**  | Logic for the same feature can be split across multiple sections                               | Related logic is grouped together, making it easier to maintain   |
+| **Readability**        | Easy to read for small components                                                              | Scales better for large, complex components                       |
+| **Reusability**        | Requires mixins or higher-order components to reuse logic                                      | Reuses logic easily with **composition functions**                |
+| **Learning curve**     | Easier for beginners                                                                           | Slightly harder at first, but more powerful in the long run       |
+| **TypeScript support** | Limited support                                                                                | Better TypeScript support out of the box                          |
+| **When to use**        | Small to medium projects with simple state and methods                                         | Large, complex projects needing better structure and reusability  |
+
+                                                                                      (or)
+->Options API → You write your code in separate sections like data, methods, computed, even if they’re related.
+Syntax: <script>
+export default {
+          data() {
+            return { count: 0 };
+           },
+          methods: {
+             increment() {
+             this.count++;
+            }
+          }
+        };
+       </script>
+
+->Composition API → You put all related code together inside one setup() function, making it easier to manage and reuse.
+Syntax: <script>
+        import { ref } from 'vue';
+        export default {
+        setup() {
+        const count = ref(0);
+        const increment = () => count.value++;
+        return { count, increment };
+            }
+         };
+       </script>
+
